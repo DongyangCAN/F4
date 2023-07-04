@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class PlayerCtl : MonoBehaviour
 {
+    // 박스 제어
+    private BoxCollider2D boxCollider;
+    public LayerMask layerMask; // <- 충돌할 때 어느 레이아웃과 충돌했나?
+
     // 걷기 제어
     public float speed;
     private Vector3 vector;
@@ -27,6 +31,7 @@ public class PlayerCtl : MonoBehaviour
     void Start() 
     {
         animator = GetComponent<Animator>();
+        boxCollider = GetComponent<BoxCollider2D>();
     }
 
     IEnumerator MoveCoroutine() // 중복 키 제어
@@ -51,6 +56,19 @@ public class PlayerCtl : MonoBehaviour
             }
             animator.SetFloat("DirX", vector.x);
             animator.SetFloat("DirY", vector.y);
+
+            RaycastHit2D hit; // A지점에서 B지점까지 레이저를 쏘는데 도달하면 NULL 장애물이 있으면 장애물을 리턴
+            Vector2 start = transform.position; // A지점 캐릭터의 현재 위치값
+            Vector2 end = start + new Vector2(vector.x * speed * walkCount, vector.y * speed * walkCount); // B지점 캐릭터가 이동하고자 하는 위치 값
+            boxCollider.enabled = false;
+            hit = Physics2D.Linecast(start, end, layerMask);
+            boxCollider.enabled = true;
+
+            if(hit.transform != null)
+            {
+                break;
+            }
+
             animator.SetBool("Walking", true);
 
             while (currentWalkCount < walkCount)
