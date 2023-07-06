@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerCtl : MonoBehaviour
@@ -30,6 +31,7 @@ public class PlayerCtl : MonoBehaviour
     // Start is called before the first frame update
     void Start() 
     {
+        DontDestroyOnLoad(this.gameObject);
         animator = GetComponent<Animator>();
         boxCollider = GetComponent<BoxCollider2D>();
     }
