@@ -5,10 +5,12 @@ using UnityEngine;
 
 public class PlayerCtl : MonoBehaviour
 {
+    static public PlayerCtl instance;
+    public string currentMapName;
     // 박스 제어
     private BoxCollider2D boxCollider;
     public LayerMask layerMask; // <- 충돌할 때 어느 레이아웃과 충돌했나?
-
+    
     // 걷기 제어
     public float speed;
     private Vector3 vector;
@@ -31,9 +33,17 @@ public class PlayerCtl : MonoBehaviour
     // Start is called before the first frame update
     void Start() 
     {
-        DontDestroyOnLoad(this.gameObject);
-        animator = GetComponent<Animator>();
-        boxCollider = GetComponent<BoxCollider2D>();
+        if(instance == null)
+        {
+            DontDestroyOnLoad(this.gameObject);
+            animator = GetComponent<Animator>();
+            boxCollider = GetComponent<BoxCollider2D>();
+            instance = this;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     IEnumerator MoveCoroutine() // 중복 키 제어
