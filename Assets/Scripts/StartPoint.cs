@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StartPoint : MonoBehaviour
 {
-    public string startPoint; // 맵이 이동, 플레이어가 시작될 위치;
+    public string startPoint;
     private PlayerCtl thePlayer;
     private CameraManager theCamera;
     void Start()
