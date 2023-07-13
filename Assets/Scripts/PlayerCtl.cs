@@ -30,7 +30,14 @@ public class PlayerCtl : MonoBehaviour
     // 애니메이터 제어
     private Animator animator;
 
-    // Start is called before the first frame update
+    // 소리 제어
+    public string walkSound_1;
+    public string walkSound_2;
+    public string walkSound_3;
+    public string walkSound_4;
+
+    private AudioManager theAudio;
+
     void Start() 
     {
         if(instance == null)
@@ -38,6 +45,7 @@ public class PlayerCtl : MonoBehaviour
             DontDestroyOnLoad(this.gameObject);
             animator = GetComponent<Animator>();
             boxCollider = GetComponent<BoxCollider2D>();
+            theAudio = FindObjectOfType<AudioManager>();
             instance = this;
         }
         else
@@ -83,6 +91,22 @@ public class PlayerCtl : MonoBehaviour
 
             animator.SetBool("Walking", true);
 
+            int temp = Random.Range(1, 2);
+            switch (temp)
+            {
+                case 1:
+                    theAudio.Play(walkSound_1);
+                    break;
+                case 2:
+                    theAudio.Play(walkSound_2);
+                    break;
+                case 3:
+                    theAudio.Play(walkSound_3);
+                    break;
+                case 4:
+                    theAudio.Play(walkSound_4);
+                    break;
+            }
             while (currentWalkCount < walkCount)
             {
                 if (vector.x != 0)
