@@ -5,12 +5,12 @@ using UnityEngine;
 public class StartPoint : MonoBehaviour
 {
     public string startPoint;
-    private PlayerCtl thePlayer;
+    private PlayerManager thePlayer;
     private CameraManager theCamera;
     void Start()
     {
         theCamera = FindObjectOfType<CameraManager>();
-        thePlayer = FindObjectOfType<PlayerCtl>();
+        thePlayer = FindObjectOfType<PlayerManager>();
         if(startPoint == thePlayer.currentMapName)
         {
             thePlayer.transform.position = this.transform.position;
