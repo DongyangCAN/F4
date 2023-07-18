@@ -12,7 +12,6 @@ public class NPCMove
     [Tooltip("1 = 천천히 2 = 조금 천천히 3 = 보통 4= 빠르게 5= 연속적으로")]
     public int frequency; // npc가 움직일 방향으로 속도 지정
 }
-
 public class NPCManager : MovingObject
 {
     [SerializeField]
@@ -20,15 +19,15 @@ public class NPCManager : MovingObject
 
     void Start()
     {
-        StartCoroutine(MoveCoroutine());
+        queue = new Queue<string>();
     }
     public void SetMove()
     {
-
+        StartCoroutine(MoveCoroutine());
     }
     public void SetNotMove()
     {
-
+        StopAllCoroutines();
     }
     IEnumerator MoveCoroutine()
     {
@@ -53,7 +52,7 @@ public class NPCManager : MovingObject
                     case 5:
                         break;    
                 }
-                yield return new WaitUntil(() => npcCanMove);
+                yield return new WaitUntil(() => queue.Count < 2);
                 base.Move(npc.direction[i], npc.frequency);
                 if(i == npc.direction.Length - 1)
                 {

@@ -23,15 +23,11 @@ public class PlayerManager : MovingObject
     public string walkSound_4;
 
     private AudioManager theAudio;
-
-    void Start()
+    private void Awake()
     {
         if (instance == null)
         {
             DontDestroyOnLoad(this.gameObject);
-            animator = GetComponent<Animator>();
-            boxCollider = GetComponent<BoxCollider2D>();
-            theAudio = FindObjectOfType<AudioManager>();
             instance = this;
         }
         else
@@ -39,7 +35,13 @@ public class PlayerManager : MovingObject
             Destroy(this.gameObject);
         }
     }
-
+    void Start()
+    {
+        queue = new Queue<string>();
+        animator = GetComponent<Animator>();
+        boxCollider = GetComponent<BoxCollider2D>();
+        theAudio = FindObjectOfType<AudioManager>();
+    }
     IEnumerator MoveCoroutine() // 중복 키 제어
     {
         while (Input.GetAxisRaw("Vertical") != 0 || Input.GetAxisRaw("Horizontal") != 0)
