@@ -89,6 +89,7 @@ public class PlayerManager : MovingObject
                     theAudio.Play(walkSound_4);
                     break;
             }
+            boxCollider.offset = new Vector2(vector.x * 0.3f * speed * walkCount, vector.y * 0.3f * speed * walkCount);
             while (currentWalkCount < walkCount)
             {
                 if (vector.x != 0)
@@ -104,6 +105,10 @@ public class PlayerManager : MovingObject
                     currentWalkCount++;
                 }
                 currentWalkCount++;
+                if (currentWalkCount == 25)
+                {
+                    boxCollider.offset = Vector2.zero;
+                }
                 yield return new WaitForSeconds(0.01f);
             }
             currentWalkCount = 0;
