@@ -24,6 +24,14 @@ public class OrderManager : MonoBehaviour
         }
         return tempList;
     }
+    public void NotMove()
+    {
+        thePlayer.notMove = true;
+    }
+    public void Move()
+    {
+        thePlayer.notMove = false;
+    }
     public void SetTransparent(string _name)
     {
         for (int i = 0; i < characters.Count; i++)

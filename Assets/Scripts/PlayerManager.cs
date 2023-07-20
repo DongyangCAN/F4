@@ -23,6 +23,7 @@ public class PlayerManager : MovingObject
     public string walkSound_4;
 
     private AudioManager theAudio;
+    public bool notMove = false;
     private void Awake()
     {
         if (instance == null)
@@ -44,7 +45,7 @@ public class PlayerManager : MovingObject
     }
     IEnumerator MoveCoroutine() // 중복 키 제어
     {
-        while (Input.GetAxisRaw("Vertical") != 0 || Input.GetAxisRaw("Horizontal") != 0)
+        while (Input.GetAxisRaw("Vertical") != 0 || Input.GetAxisRaw("Horizontal") != 0 && !notMove)
         {
             if (Input.GetKey(KeyCode.LeftShift))
             {
@@ -120,7 +121,7 @@ public class PlayerManager : MovingObject
     // Update is called once per frame
     void Update()
     {
-        if (canMove)
+        if (canMove && !notMove)
         {
             if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
             {
