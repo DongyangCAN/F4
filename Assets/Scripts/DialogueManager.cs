@@ -34,7 +34,6 @@ public class DialogueManager : MonoBehaviour
     public string typeSound;
     public string enterSound;
     private AudioManager theAudio;
-    private OrderManager theOrder;
     void Start()
     {
         count = 0;
@@ -43,12 +42,10 @@ public class DialogueManager : MonoBehaviour
         listSprites = new List<Sprite>();
         listDialogueWindows = new List<Sprite>();
         theAudio = FindObjectOfType<AudioManager>();
-        theOrder = FindObjectOfType<OrderManager>();
     }
     public void ShowDialogue(Dialogue dialogue)
     {
         talking = true;
-        theOrder.NotMove();
         for(int i = 0; i < dialogue.sentenes.Length; i++)
         {
             listSentences.Add(dialogue.sentenes[i]);
@@ -69,7 +66,6 @@ public class DialogueManager : MonoBehaviour
         animSprite.SetBool("Appear", false);
         animDialogueWindow.SetBool("Appear", false);
         talking = false;
-        theOrder.Move();
     }
     IEnumerator StartDialogueCoroutine()
     {
