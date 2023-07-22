@@ -9,10 +9,11 @@ public class EventSchoolFront : MonoBehaviour
     private DialogueManager theDM;
     private OrderManager theOrder;
     private PlayerManager thePlayer;
-
+    private FadeManager theFade;
     private bool flag = false;
     void Start()
     {
+        theFade = FindObjectOfType<FadeManager>();
         theDM = FindObjectOfType<DialogueManager>();
         theOrder = FindObjectOfType<OrderManager>();
         thePlayer = FindObjectOfType<PlayerManager>();
@@ -36,6 +37,7 @@ public class EventSchoolFront : MonoBehaviour
         theOrder.Move("player", "RIGHT");
         theOrder.Move("player", "DOWN");
         yield return new WaitUntil(() => thePlayer.queue.Count == 0); // 움직임이 종료될 때
+        theFade.Flash();
         theDM.ShowDialogue(dialoge_2);
         yield return new WaitUntil(() => !theDM.talking); 
         theOrder.Move(); // 움직임 O
