@@ -11,6 +11,7 @@ public class EventSchoolFront : MonoBehaviour
     private PlayerManager thePlayer;
     private FadeManager theFade;
     private bool flag = false;
+    private bool playerOnBox = false;
     void Start()
     {
         theFade = FindObjectOfType<FadeManager>();
@@ -18,9 +19,27 @@ public class EventSchoolFront : MonoBehaviour
         theOrder = FindObjectOfType<OrderManager>();
         thePlayer = FindObjectOfType<PlayerManager>();
     }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerOnBox = true;
+        }
+    }
+
+    // 플레이어가 박스에서 벗어났을 때 playerOnBox를 false로 설정
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerOnBox = false;
+        }
+    }
+
     void Update()
     {
-        if (!flag && Input.GetKey(KeyCode.Z))
+        // 플레이어가 박스 위에 있고, flag가 false일 때만 Z 키를 누르면 이벤트 실행
+        if (playerOnBox && !flag && Input.GetKey(KeyCode.Z))
         {
             flag = true;
             StartCoroutine(EventCoroutine());
