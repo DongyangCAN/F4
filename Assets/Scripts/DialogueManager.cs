@@ -34,6 +34,7 @@ public class DialogueManager : MonoBehaviour
     public string typeSound;
     public string enterSound;
     private AudioManager theAudio;
+    private bool onlyText = false;
     void Start()
     {
         count = 0;
@@ -43,10 +44,34 @@ public class DialogueManager : MonoBehaviour
         listDialogueWindows = new List<Sprite>();
         theAudio = FindObjectOfType<AudioManager>();
     }
+    public void ShowText(string[] _sentences)
+    {
+        talking = true;
+        onlyText = true;
+        for (int i = 0; i < _sentences.Length; i++)
+        {
+            listSentences.Add(_sentences[i]);
+        }
+        StartCoroutine(StartTextCoroutine());
+    }
+    IEnumerator StartTextCoroutine()
+    {
+        keyActivated = true;
+        for (int i = 0; i < listSentences[count].Length; i++)
+        {
+            text.text += listSentences[count][i]; // 1글자 씩 출력
+            if (i % 7 == 1)
+            {
+                theAudio.Play(typeSound);
+            }
+            yield return new WaitForSeconds(0.01f);
+        }
+    }
     public void ShowDialogue(Dialogue dialogue)
     {
         talking = true;
-        for(int i = 0; i < dialogue.sentenes.Length; i++)
+        onlyText = false;
+        for (int i = 0; i < dialogue.sentenes.Length; i++)
         {
             listSentences.Add(dialogue.sentenes[i]);
             listSprites.Add(dialogue.sprites[i]);
@@ -130,7 +155,10 @@ public class DialogueManager : MonoBehaviour
                 else
                 {
                     StopAllCoroutines();
-                    StartCoroutine(StartDialogueCoroutine());
+                    if (onlyText)
+                        StartCoroutine(StartTextCoroutine());
+                    else
+                        StartCoroutine(StartDialogueCoroutine());
                 }
             }
         }
