@@ -15,6 +15,7 @@ public class PlayerManager : MovingObject
 
     // 중복 키 제어
     private bool canMove = true;
+    private Coroutine moveCoroutine;
 
     // 소리 제어
     public string walkSound_1;
@@ -117,8 +118,6 @@ public class PlayerManager : MovingObject
         animator.SetBool("Walking", false);
         canMove = true;
     }
-
-    // Update is called once per frame
     void Update()
     {
         if (canMove && !notMove)
