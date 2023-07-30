@@ -16,7 +16,6 @@ public class InputField : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Return))
         {
             thePlayer.characterName = text.text;
-            Debug.Log(text.text);
             Destroy(this.gameObject);
         }
     }
