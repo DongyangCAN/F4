@@ -24,6 +24,18 @@ public class DatabaseManager : MonoBehaviour
     public string[] switch_name;
     public bool[] switches;
     public List<Item> itemList = new List<Item>();
+    public void UseItem(int _itemID)
+    {
+        switch (_itemID)
+        {
+            case 10001:
+                Debug.Log("Hp 50회복");
+                break;
+            case 10002:
+                Debug.Log("Ma 10회복");
+                break;
+        }
+    }
     private void Start()
     {
         itemList.Add(new Item(10001, "빨간 포션", "체력을 50 회복시켜주는 기적의 물약", Item.ItemType.Use));
