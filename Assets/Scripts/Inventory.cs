@@ -24,6 +24,7 @@ public class Inventory : MonoBehaviour
     public GameObject go; // 인벤토리 할성화 비활성화
     public GameObject[] selectedTabImages;
     public GameObject go_OOC; // 선택시 활성화 비활성화
+    public GameObject pretab_floating_text;
     private int selectedItem; // 선택된 아이템
     private int selectedTab; // 선택된 탭
     private bool activated; // 인벤토리 활성하 시 true;
@@ -50,6 +51,9 @@ public class Inventory : MonoBehaviour
         {
             if(_itemID == theDatabase.itemList[i].itemID) // 아이템을 찾아서 추가
             {
+                var clone = Instantiate(pretab_floating_text, PlayerManager.instance.transform.position, Quaternion.Euler(Vector3.zero));
+                clone.GetComponent<FloatingText>().text.text = theDatabase.itemList[i].itemName + " " + _count + "개 획득";
+                clone.transform.SetParent(this.transform);
                 for(int j = 0; j < inventoryItemList.Count; j++) // 아이템이 이미 있으면 1 더해줌
                 {
                     if (inventoryItemList[j].itemID == _itemID)
