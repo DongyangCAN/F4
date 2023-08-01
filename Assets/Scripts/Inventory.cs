@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
+    private OOC theOOC;
     public static Inventory instance;
     private DatabaseManager theDatabase;
     private AudioManager theAudio;
@@ -22,12 +23,13 @@ public class Inventory : MonoBehaviour
     public Transform tf; // slot 부모객체
     public GameObject go; // 인벤토리 할성화 비활성화
     public GameObject[] selectedTabImages;
+    public GameObject go_OOC; // 선택시 활성화 비활성화
     private int selectedItem; // 선택된 아이템
     private int selectedTab; // 선택된 탭
     private bool activated; // 인벤토리 활성하 시 true;
     private bool tabActivated; // 탭 활성화 시 true
     private bool itemActivated; // 아이템 활성화 시 true
-    private bool stopKeytInput; // 키 입력 제한
+    private bool stopKeyInput; // 키 입력 제한
     private bool preventExec;  // 중복실행 제한
     private WaitForSeconds waitTime = new WaitForSeconds(0.01f);
     private OrderManager theOrder;
@@ -40,6 +42,7 @@ public class Inventory : MonoBehaviour
         inventoryTabList = new List<Item>();
         slots = tf.GetComponentsInChildren<InventorySlot>();
         theOrder = FindObjectOfType<OrderManager>();
+        theOOC = FindObjectOfType<OOC>();
     }
     public void GetAnItem(int _itemID, int _count = 1) 
     {
@@ -205,7 +208,7 @@ public class Inventory : MonoBehaviour
     }
     void Update()
     {
-        if (!stopKeytInput)
+        if (!stopKeyInput)
         {
             if (Input.GetKeyDown(KeyCode.I))
             {
@@ -236,7 +239,7 @@ public class Inventory : MonoBehaviour
                 {
                     if (Input.GetKeyDown(KeyCode.RightArrow))
                     {
-                        if (selectedTab < selectedTabImages.Length - 2)
+                        if (selectedTab < selectedTabImages.Length - 1)
                         {
                             selectedTab++;
                         }
@@ -333,8 +336,8 @@ public class Inventory : MonoBehaviour
                             if (selectedTab == 0)
                             {
                                 theAudio.Play(enter_sound);
-                                stopKeytInput = true;
-                                // 물약 사용 여부
+                                stopKeyInput = true;
+                                StartCoroutine(OOCCoroutine());
                             }
                             else if (selectedTab == 1)
                             {
@@ -361,5 +364,34 @@ public class Inventory : MonoBehaviour
                 }
             }
         }
+    }
+    IEnumerator OOCCoroutine()
+    {
+        go_OOC.SetActive(true);
+        theOOC.ShowTwoChoice("사용", "취소");
+        yield return new WaitUntil(() => !theOOC.activated);
+        if (theOOC.GetResult())
+        {
+            for(int i = 0; i < inventoryItemList.Count; i++)
+            {
+                theDatabase.UseItem(inventoryItemList[i].itemID);
+                if (inventoryItemList[i].itemID == inventoryTabList[selectedItem].itemID)
+                {
+                    if (inventoryItemList[i].itemCount > 1)
+                    {
+                        inventoryItemList[i].itemCount--;
+                    }
+                    else
+                    {
+                        inventoryItemList.RemoveAt(i);
+                    }
+                    // 아이템 먹는 소리 여기다가
+                    ShowItem();
+                    break;
+                }
+            }
+        }
+        stopKeyInput = false;
+        go_OOC.SetActive(false);
     }
 }
