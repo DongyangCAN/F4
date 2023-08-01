@@ -4834,6 +4834,7 @@ MonoBehaviour:
   - {fileID: 1237880563}
   - {fileID: 1771347656}
   go_OOC: {fileID: 640149614}
+  pretab_floating_text: {fileID: 4556553292587462609, guid: 6e8acfb016ed3c1439768ff6d45d3c5a, type: 3}
 --- !u!1 &1129396018
 GameObject:
   m_ObjectHideFlags: 0
