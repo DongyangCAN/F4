@@ -14,7 +14,6 @@ public class ItemPickUp : MonoBehaviour
     }
     private void Update()
     {
-        Debug.Log(flag);
         if (flag && Input.GetKeyDown(KeyCode.Z))
         {
             AudioManager.instance.Play(pickUpSound);
