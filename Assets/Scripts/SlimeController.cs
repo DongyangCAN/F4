@@ -35,6 +35,7 @@ public class SlimeController : MovingObject
                 return;
             }
             base.Move(direction);
+            StartCoroutine(Delay());
         }
     }
     private void Flip()
@@ -58,7 +59,7 @@ public class SlimeController : MovingObject
         AudioManager.instance.Play(atkSound);
         if (NearPlayer())
         {
-            Debug.Log("슬라임이 플레이어에게 " + atk + "만큼의 데미지를 입혔습니다.");
+            PlayerStat.instance.Hit(atk);
         }
     }
     private bool NearPlayer()
@@ -103,5 +104,10 @@ public class SlimeController : MovingObject
                 direction = "LEFT";
                 break;
         }
+    }
+    IEnumerator Delay()
+    {
+        yield return new WaitForSeconds(0.2f);
+        boxCollider.offset = Vector2.zero;
     }
 }
