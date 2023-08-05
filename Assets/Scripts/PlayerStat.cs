@@ -68,4 +68,18 @@ public class PlayerStat : MonoBehaviour
         color.a = 1f;
         GetComponent<SpriteRenderer>().color = color;
     }
+    void Update()
+    {
+        if(currentExp >= needExp[character_Lv])
+        {
+            character_Lv++;
+            hp += character_Lv * 2;
+            mp = character_Lv + 2;
+            currentHP = hp;
+            currentMP = mp;
+            atk++;
+            def++;
+            currentExp = 0;
+        }   
+    }
 }

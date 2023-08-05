@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class SlimeController : MovingObject
 {
-    public int atk; // 슬라임의 공격력
     public float attackDelay; // 공격 속도
     public float inter_MoveWaitTime; // 대기 시간
     public string atkSound;
@@ -59,7 +58,7 @@ public class SlimeController : MovingObject
         AudioManager.instance.Play(atkSound);
         if (NearPlayer())
         {
-            PlayerStat.instance.Hit(atk);
+            PlayerStat.instance.Hit(GetComponent<EnemyStat>().atk);
         }
     }
     private bool NearPlayer()
