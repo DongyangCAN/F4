@@ -3069,6 +3069,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabs_Floating_text: {fileID: 4556553292587462609, guid: 6e8acfb016ed3c1439768ff6d45d3c5a, type: 3}
   parent: {fileID: 878299996}
+  effect: {fileID: 1060829379159353287, guid: d6be9674eedc48643884d891ca66158d, type: 3}
   atkSound: enter_sound
 --- !u!212 &673802805
 SpriteRenderer:
