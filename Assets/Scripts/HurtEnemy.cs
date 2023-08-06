@@ -6,6 +6,7 @@ public class HurtEnemy : MonoBehaviour
 {
     public GameObject prefabs_Floating_text;
     public GameObject parent;
+    public GameObject effect;
     public string atkSound;
     private PlayerStat thePlayerStat;
     void Start()
@@ -19,6 +20,7 @@ public class HurtEnemy : MonoBehaviour
             int dmg = collision.gameObject.GetComponent<EnemyStat>().Hit(thePlayerStat.atk);
             AudioManager.instance.Play(atkSound);
             Vector3 vector = collision.transform.position;
+            Instantiate(effect, vector, Quaternion.Euler(Vector3.zero));
             vector.y += 1;
             GameObject clone = Instantiate(prefabs_Floating_text, vector, Quaternion.Euler(Vector3.zero));
             clone.GetComponent<FloatingText>().text.text = dmg.ToString();
