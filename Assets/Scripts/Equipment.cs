@@ -14,18 +14,20 @@ public class Equipment : MonoBehaviour
     public string enter_sound;
     public string open_sound;
     public string close_sound;
+    public string takeoff_sound;
     private const int WEAPON = 0, SHILED = 1, LEFT_RING = 3, 
                       RIGHT_RING = 4, HELMET = 5, ARMOR = 6, 
                       LEFT_GLOVE = 7, RIGHT_GLOVE = 8,
                       BELT = 9, LEFT_BOOTS = 10, RIGHT_BOOTS = 11;
+    public GameObject go_OOC;
     public GameObject go;
     public Text[] text; // 스탯
     public Image[] img_slots; // 장비 슬롯 아이콘들
     public GameObject go_selected_Slot_UI; // 선택된 장비 슬롯
     public Item[] equipItemList; // 장착된 장비 리스트
     private int selectedSlot; // 선택된 장비 슬롯
-    public bool activated;
-    private bool inputKey;
+    public bool activated = false;
+    private bool inputKey = true;
     void Start()
     {
         theInven = FindObjectOfType<Inventory>();
@@ -61,6 +63,38 @@ public class Equipment : MonoBehaviour
             }
         }
     }
+    public void EquipItem(Item _item)
+    {
+        string temp = _item.itemID.ToString();
+        temp = temp.Substring(0, 3);
+        switch (temp)
+        {
+            case "200": // 무기
+                EquipItemCheck(WEAPON, _item);
+                break;
+            case "201": // 방패
+                EquipItemCheck(SHILED, _item);
+                break;
+            case "202": // 아뮬렛
+                EquipItemCheck(ARMOR, _item);
+                break;
+            case "203": // 반지
+                EquipItemCheck(LEFT_RING, _item);
+                break;
+        }
+    }
+    public void EquipItemCheck(int _count, Item _item)
+    {
+        if (equipItemList[_count].itemID == 0)
+        {
+            equipItemList[_count] = _item;
+        }
+        else
+        {
+            theInven.EquipToInventory(equipItemList[_count]);
+            equipItemList[_count] = _item;
+        }
+    }
     void Update()
     {
         if (inputKey)
@@ -74,6 +108,7 @@ public class Equipment : MonoBehaviour
                     theAudio.Play(open_sound);
                     go.SetActive(true);
                     selectedSlot = 0;
+                    SelectedSlot();
                     ClearEquip();
                     ShowEquip();
                 }
@@ -141,40 +176,30 @@ public class Equipment : MonoBehaviour
                 }
                 else if (Input.GetKeyDown(KeyCode.Z))
                 {
-                    theAudio.Play(enter_sound);
-                    inputKey = false;
-
+                    if (equipItemList[selectedSlot].itemID != 0)
+                    {
+                        theAudio.Play(enter_sound);
+                        inputKey = false;
+                        StartCoroutine(OOCCoroutine("장착 해제", "취소"));
+                    }
                 }
             }
         }
     }
-    IEnumerator OOCCoroutine()
+    IEnumerator OOCCoroutine(string _up, string _down)
     {
         go_OOC.SetActive(true);
-        theOOC.ShowTwoChoice("사용", "취소");
+        theOOC.ShowTwoChoice(_up, _down);
         yield return new WaitUntil(() => !theOOC.activated);
         if (theOOC.GetResult())
         {
-            for (int i = 0; i < inventoryItemList.Count; i++)
-            {
-                theDatabase.UseItem(inventoryItemList[i].itemID);
-                if (inventoryItemList[i].itemID == inventoryTabList[selectedItem].itemID)
-                {
-                    if (inventoryItemList[i].itemCount > 1)
-                    {
-                        inventoryItemList[i].itemCount--;
-                    }
-                    else
-                    {
-                        inventoryItemList.RemoveAt(i);
-                    }
-                    // 아이템 먹는 소리 여기다가
-                    ShowItem();
-                    break;
-                }
-            }
+            theInven.EquipToInventory(equipItemList[selectedSlot]);
+            equipItemList[selectedSlot] = new Item(0, "", "", Item.ItemType.Equip);
+            theAudio.Play(takeoff_sound);
+            ClearEquip();
+            ShowEquip();
         }
-        stopKeyInput = false;
+        inputKey = true;
         go_OOC.SetActive(false);
     }
 }
