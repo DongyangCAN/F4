@@ -6,15 +6,17 @@ using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
-    private OOC theOOC;
     public static Inventory instance;
-    private DatabaseManager theDatabase;
-    private AudioManager theAudio;
     public string key_sound;
     public string enter_sound;
     public string cancel_sound;
     public string open_sound;
     public string beep_sound;
+    private OOC theOOC;
+    private DatabaseManager theDatabase;
+    private AudioManager theAudio;
+    private OrderManager theOrder;
+    private Equipment theEquip;
     private InventorySlot[] slots; // 인벤토리 슬롯들
     private List<Item> inventoryItemList; // 플레이어가 소지한 아이템 리스트
     private List<Item> inventoryTabList; // 선택한 템에 따라 다르게 보여질 아이템 리스트
@@ -33,17 +35,21 @@ public class Inventory : MonoBehaviour
     private bool stopKeyInput; // 키 입력 제한
     private bool preventExec;  // 중복실행 제한
     private WaitForSeconds waitTime = new WaitForSeconds(0.01f);
-    private OrderManager theOrder;
     void Start()
     {
         instance = this;
         theDatabase = FindObjectOfType<DatabaseManager>();  
         theAudio = FindObjectOfType<AudioManager>();
+        theOrder = FindObjectOfType<OrderManager>();
+        theOOC = FindObjectOfType<OOC>();
+        theEquip = FindObjectOfType<Equipment>();
         inventoryItemList = new List<Item>();
         inventoryTabList = new List<Item>();
         slots = tf.GetComponentsInChildren<InventorySlot>();
-        theOrder = FindObjectOfType<OrderManager>();
-        theOOC = FindObjectOfType<OOC>();
+    }
+    public void EquipToInventory(Item _item)
+    {
+        inventoryItemList.Add(_item);
     }
     public void GetAnItem(int _itemID, int _count = 1) 
     {
@@ -339,13 +345,11 @@ public class Inventory : MonoBehaviour
                         {
                             if (selectedTab == 0)
                             {
-                                theAudio.Play(enter_sound);
-                                stopKeyInput = true;
-                                StartCoroutine(OOCCoroutine());
+                                StartCoroutine(OOCCoroutine("사용", "취소"));
                             }
                             else if (selectedTab == 1)
                             {
-                                // 장비
+                                StartCoroutine(OOCCoroutine("장착", "취소"));
                             }
                             else
                             {
@@ -369,29 +373,40 @@ public class Inventory : MonoBehaviour
             }
         }
     }
-    IEnumerator OOCCoroutine()
+    IEnumerator OOCCoroutine(string _up, string _down)
     {
+        theAudio.Play(enter_sound);
+        stopKeyInput = true;
         go_OOC.SetActive(true);
-        theOOC.ShowTwoChoice("사용", "취소");
+        theOOC.ShowTwoChoice(_up, _down);
         yield return new WaitUntil(() => !theOOC.activated);
         if (theOOC.GetResult())
         {
             for(int i = 0; i < inventoryItemList.Count; i++)
             {
-                theDatabase.UseItem(inventoryItemList[i].itemID);
                 if (inventoryItemList[i].itemID == inventoryTabList[selectedItem].itemID)
                 {
-                    if (inventoryItemList[i].itemCount > 1)
+                    if (selectedTab == 0)
                     {
-                        inventoryItemList[i].itemCount--;
+                        theDatabase.UseItem(inventoryItemList[i].itemID);
+                        if (inventoryItemList[i].itemCount > 1)
+                        {
+                            inventoryItemList[i].itemCount--;
+                        }
+                        else
+                        {
+                            inventoryItemList.RemoveAt(i);
+                        }
+                        ShowItem();
+                        break;
                     }
-                    else
+                    else if(selectedTab == 1)
                     {
+                        theEquip.EquipItem(inventoryItemList[i]);
                         inventoryItemList.RemoveAt(i);
+                        ShowItem();
+                        break;
                     }
-                    // 아이템 먹는 소리 여기다가
-                    ShowItem();
-                    break;
                 }
             }
         }
