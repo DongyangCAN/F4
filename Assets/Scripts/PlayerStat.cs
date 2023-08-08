@@ -14,12 +14,17 @@ public class PlayerStat : MonoBehaviour
     public int currentMP; // 현재 마나
     public int atk; // 공격력
     public int def; // 방어력
+    public int recover_hp;
+    public int recover_mp;
     public string dmgSound;
+    public float time;
+    private float current_time;
     public GameObject prefabs_Floating_text;
     public GameObject parent;
     void Start()
     {
         instance = this;
+        current_time = time;
     }
     public void Hit(int _enemyAtk)
     {
@@ -81,5 +86,21 @@ public class PlayerStat : MonoBehaviour
             def++;
             currentExp = 0;
         }   
+        current_time -= Time.deltaTime;
+        if(current_time <= 0)
+        {
+            if(recover_hp > 0)
+            {
+                if(currentHP + recover_hp <= hp)
+                {
+                    currentHP += recover_hp;
+                }
+                else
+                {
+                    currentHP = hp;
+                }
+                current_time = time;
+            }
+        }
     }
 }
