@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,10 +16,13 @@ public class Equipment : MonoBehaviour
     public string open_sound;
     public string close_sound;
     public string takeoff_sound;
+    public string equip_sound;
     private const int WEAPON = 0, SHILED = 1, LEFT_RING = 3, 
                       RIGHT_RING = 4, HELMET = 5, ARMOR = 6, 
                       LEFT_GLOVE = 7, RIGHT_GLOVE = 8,
                       BELT = 9, LEFT_BOOTS = 10, RIGHT_BOOTS = 11;
+    private const int ATK = 0, DEF = 1, HPR = 6, MPR = 7;
+    private int added_atk, added_def, added_hpr, added_mpr;
     public GameObject go_OOC;
     public GameObject go;
     public Text[] text; // Ω∫≈»
@@ -35,6 +39,23 @@ public class Equipment : MonoBehaviour
         theAudio = FindObjectOfType<AudioManager>();
         thePlayerStat = FindObjectOfType<PlayerStat>();
         theOOC = FindObjectOfType<OOC>();
+    }
+    public void ShowText()
+    {
+        if(added_atk == 0)
+        {
+            text[ATK].text = thePlayerStat.atk.ToString();
+            text[DEF].text = thePlayerStat.def.ToString();
+            text[HPR].text = thePlayerStat.recover_hp.ToString();
+            text[MPR].text = thePlayerStat.recover_mp.ToString();
+        }
+        else
+        {
+            text[ATK].text = thePlayerStat.atk.ToString() + "(+" + added_atk + ")";
+            text[DEF].text = thePlayerStat.def.ToString() + "(+" + added_def + ")";
+            text[HPR].text = thePlayerStat.recover_hp.ToString() + "(+" + added_hpr + ")";
+            text[MPR].text = thePlayerStat.recover_mp.ToString() + "(+" + added_mpr + ")";
+        }
     }
     public void SelectedSlot()
     {
@@ -94,6 +115,30 @@ public class Equipment : MonoBehaviour
             theInven.EquipToInventory(equipItemList[_count]);
             equipItemList[_count] = _item;
         }
+        EquipEffect(_item);
+        theAudio.Play(equip_sound);
+    }
+    private void EquipEffect(Item _item)
+    {
+        thePlayerStat.atk += _item.atk;
+        thePlayerStat.def += _item.def;
+        thePlayerStat.recover_hp += _item.recover_hp;
+        thePlayerStat.recover_mp += _item.recover_mp;
+        added_atk += _item.atk;
+        added_def += _item.def;
+        added_hpr += _item.recover_hp;
+        added_mpr += _item.recover_mp;
+    }
+    private void TakeOffEffect(Item _item)
+    {
+        thePlayerStat.atk -= _item.atk;
+        thePlayerStat.def -= _item.def;
+        thePlayerStat.recover_hp -= _item.recover_hp;
+        thePlayerStat.recover_mp -= _item.recover_mp;
+        added_atk -= _item.atk;
+        added_def -= _item.def;
+        added_hpr -= _item.recover_hp;
+        added_mpr -= _item.recover_mp;
     }
     void Update()
     {
@@ -111,6 +156,7 @@ public class Equipment : MonoBehaviour
                     SelectedSlot();
                     ClearEquip();
                     ShowEquip();
+                    ShowText();
                 }
                 else
                 {
@@ -194,6 +240,8 @@ public class Equipment : MonoBehaviour
         if (theOOC.GetResult())
         {
             theInven.EquipToInventory(equipItemList[selectedSlot]);
+            TakeOffEffect(equipItemList[selectedSlot]);
+            ShowText();
             equipItemList[selectedSlot] = new Item(0, "", "", Item.ItemType.Equip);
             theAudio.Play(takeoff_sound);
             ClearEquip();
