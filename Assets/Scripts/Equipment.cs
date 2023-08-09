@@ -23,6 +23,7 @@ public class Equipment : MonoBehaviour
                       BELT = 9, LEFT_BOOTS = 10, RIGHT_BOOTS = 11;
     private const int ATK = 0, DEF = 1, HPR = 6, MPR = 7;
     private int added_atk, added_def, added_hpr, added_mpr;
+    public GameObject equipWeapon;
     public GameObject go_OOC;
     public GameObject go;
     public Text[] text; // 스탯
@@ -92,6 +93,9 @@ public class Equipment : MonoBehaviour
         {
             case "200": // 무기
                 EquipItemCheck(WEAPON, _item);
+                equipWeapon.SetActive(true);
+                equipWeapon.GetComponent<SpriteRenderer>().sprite = _item.itemIcon;
+                
                 break;
             case "201": // 방패
                 EquipItemCheck(SHILED, _item);
@@ -241,6 +245,10 @@ public class Equipment : MonoBehaviour
         {
             theInven.EquipToInventory(equipItemList[selectedSlot]);
             TakeOffEffect(equipItemList[selectedSlot]);
+            if(selectedSlot == WEAPON)
+            {
+                equipWeapon.SetActive(false);
+            }
             ShowText();
             equipItemList[selectedSlot] = new Item(0, "", "", Item.ItemType.Equip);
             theAudio.Play(takeoff_sound);
