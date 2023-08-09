@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerStat : MonoBehaviour
 {
@@ -21,6 +22,8 @@ public class PlayerStat : MonoBehaviour
     private float current_time;
     public GameObject prefabs_Floating_text;
     public GameObject parent;
+    public Slider hpSlider;
+    public Slider mpSlider;
     void Start()
     {
         instance = this;
@@ -75,7 +78,11 @@ public class PlayerStat : MonoBehaviour
     }
     void Update()
     {
-        if(currentExp >= needExp[character_Lv])
+        hpSlider.maxValue = hp;
+        mpSlider.maxValue = mp;
+        hpSlider.value = currentHP;
+        mpSlider.value = currentMP;
+        if (currentExp >= needExp[character_Lv])
         {
             character_Lv++;
             hp += character_Lv * 2;
