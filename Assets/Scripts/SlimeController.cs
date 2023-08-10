@@ -12,6 +12,7 @@ public class SlimeController : MovingObject
     private Vector2 playerPos; // 플레이어 좌표 값
     private int random_int;
     private string direction;
+    public GameObject healthBar;
     void Start()
     {
         queue = new Queue<string>();
@@ -49,6 +50,7 @@ public class SlimeController : MovingObject
             flip.x = 3f;
         }
         this.transform.localScale = flip;
+        healthBar.transform.localScale = flip;
         animator.SetTrigger("Attack");
         StartCoroutine(WaitCoroutine());
     }
