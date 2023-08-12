@@ -12,14 +12,6 @@ public class Inventory : MonoBehaviour
     public string cancel_sound;
     public string open_sound;
     public string beep_sound;
-    private OOC theOOC;
-    private DatabaseManager theDatabase;
-    private AudioManager theAudio;
-    private OrderManager theOrder;
-    private Equipment theEquip;
-    private InventorySlot[] slots; // 인벤토리 슬롯들
-    private List<Item> inventoryItemList; // 플레이어가 소지한 아이템 리스트
-    private List<Item> inventoryTabList; // 선택한 템에 따라 다르게 보여질 아이템 리스트
     public Text Description_Text; // 부연 설명
     public string[] tabDescription; // 템 부연 설명
     public Transform tf; // slot 부모객체
@@ -34,6 +26,14 @@ public class Inventory : MonoBehaviour
     private bool itemActivated; // 아이템 활성화 시 true
     private bool stopKeyInput; // 키 입력 제한
     private bool preventExec;  // 중복실행 제한
+    private OOC theOOC;
+    private DatabaseManager theDatabase;
+    private AudioManager theAudio;
+    private OrderManager theOrder;
+    private Equipment theEquip;
+    private InventorySlot[] slots; // 인벤토리 슬롯들
+    private List<Item> inventoryItemList; // 플레이어가 소지한 아이템 리스트
+    private List<Item> inventoryTabList; // 선택한 템에 따라 다르게 보여질 아이템 리스트
     private WaitForSeconds waitTime = new WaitForSeconds(0.01f);
     void Start()
     {
@@ -46,6 +46,14 @@ public class Inventory : MonoBehaviour
         inventoryItemList = new List<Item>();
         inventoryTabList = new List<Item>();
         slots = tf.GetComponentsInChildren<InventorySlot>();
+    }
+    public List<Item> SaveItem()
+    {
+        return inventoryItemList;
+    }
+    public void LoadItem(List<Item> _itemList)
+    {
+        inventoryItemList = _itemList;
     }
     public void EquipToInventory(Item _item)
     {

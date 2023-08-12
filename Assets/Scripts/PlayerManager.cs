@@ -6,24 +6,23 @@ using UnityEngine;
 public class PlayerManager : MovingObject
 {
     static public PlayerManager instance;
+    private AudioManager theAudio;
+    private SaveEndLoad theSEL;
     public string currentMapName;
-
+    public string currentSceneName;
     // 뛰기 제어
     public float runSpeed;
     private float applyRunSpeed;
     private bool applyRunFlag = false;
-
     // 중복 키 제어
     private bool canMove = true;
     private Coroutine moveCoroutine;
-
     // 소리 제어
     public string walkSound_1;
     public string walkSound_2;
     public string walkSound_3;
     public string walkSound_4;
-
-    private AudioManager theAudio;
+    // 움직임 제어
     public bool notMove = false;
     private bool attacking = false;
     public float attackDelay;
@@ -47,6 +46,7 @@ public class PlayerManager : MovingObject
         animator = GetComponent<Animator>();
         boxCollider = GetComponent<BoxCollider2D>();
         theAudio = FindObjectOfType<AudioManager>();
+        theSEL = FindObjectOfType<SaveEndLoad>();
     }
     IEnumerator MoveCoroutine() // 중복 키 제어
     {
@@ -124,6 +124,14 @@ public class PlayerManager : MovingObject
     }
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.F5))
+        {
+            theSEL.CallSave();
+        }
+        if (Input.GetKeyDown(KeyCode.F9))
+        {
+            theSEL.CallLoad();
+        }
         if (canMove && !notMove && !attacking)
         {
             if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)

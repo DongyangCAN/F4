@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Bound : MonoBehaviour
 {
+    public string boundName;
     private BoxCollider2D bound;
     private CameraManager theCamera;
     void Start()
@@ -11,5 +12,12 @@ public class Bound : MonoBehaviour
         bound = GetComponent<BoxCollider2D>();
         theCamera = FindObjectOfType<CameraManager>();
         theCamera.SetBound(bound);
+    }
+    public void SetBound()
+    {
+        if(theCamera != null)
+        {
+            theCamera.SetBound(bound);
+        }
     }
 }

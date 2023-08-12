@@ -22,7 +22,7 @@ public class Equipment : MonoBehaviour
                       LEFT_GLOVE = 7, RIGHT_GLOVE = 8,
                       BELT = 9, LEFT_BOOTS = 10, RIGHT_BOOTS = 11;
     private const int ATK = 0, DEF = 1, HPR = 6, MPR = 7;
-    private int added_atk, added_def, added_hpr, added_mpr;
+    public int added_atk, added_def, added_hpr, added_mpr;
     public GameObject equipWeapon;
     public GameObject go_OOC;
     public GameObject go;
