@@ -997,6 +997,8 @@ GameObject:
   - component: {fileID: 156315669}
   - component: {fileID: 156315670}
   - component: {fileID: 156315672}
+  - component: {fileID: 156315674}
+  - component: {fileID: 156315673}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -1186,7 +1188,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   animator: {fileID: 156315668}
-  currentMapName: 
+  currentMapName: StartPoint
+  currentSceneName: StartMain
   runSpeed: 0.03
   walkSound_1: footsteps 1
   walkSound_2: footsteps 2
@@ -1209,8 +1212,8 @@ MonoBehaviour:
   character_Lv: 1
   needExp: 000000000a000000140000001e00000028000000320000003c00000046000000500000005a00000064000000
   currentExp: 0
-  hp: 100
-  currentHP: 100
+  hp: 10
+  currentHP: 10
   mp: 10
   currentMP: 10
   atk: 5
@@ -1223,6 +1226,57 @@ MonoBehaviour:
   parent: {fileID: 878299996}
   hpSlider: {fileID: 731107874}
   mpSlider: {fileID: 1205687739}
+--- !u!114 &156315673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 156315663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f240fda590e42e4eb8557aba99ea384, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &156315674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 156315663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2540c9aba0627f24b93905eba790ea3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data:
+    playerX: 0
+    playerY: 0
+    playerZ: 0
+    playerLv: 0
+    playerHP: 0
+    playerMP: 0
+    playerCurrentHP: 0
+    playerCurrentMP: 0
+    playerCurrentEXP: 0
+    playerHPR: 0
+    playerMPR: 0
+    playerATK: 0
+    playerDEF: 0
+    added_atk: 0
+    added_def: 0
+    added_hpr: 0
+    added_mpr: 0
+    playerItemInventory: 
+    playerItemInventoryCount: 
+    playerEquipItem: 
+    mapName: 
+    sceneName: 
+    swList: 
+    swNameList: []
+    varNameList: []
+    varNumberList: []
 --- !u!1 &158411114
 GameObject:
   m_ObjectHideFlags: 0
@@ -2386,6 +2440,10 @@ MonoBehaviour:
   close_sound: 
   takeoff_sound: 
   equip_sound: 
+  added_atk: 0
+  added_def: 0
+  added_hpr: 0
+  added_mpr: 0
   equipWeapon: {fileID: 1954992328}
   go_OOC: {fileID: 640149614}
   go: {fileID: 988577639}
@@ -5245,6 +5303,7 @@ GameObject:
   m_Component:
   - component: {fileID: 751050376}
   - component: {fileID: 751050375}
+  - component: {fileID: 751050377}
   m_Layer: 0
   m_Name: Abound
   m_TagString: Untagged
@@ -5312,6 +5371,19 @@ Transform:
   m_Father: {fileID: 1447567187}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &751050377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 751050374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f6994387fd675342803b55ad8f2c4a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boundName: StartPoint
 --- !u!1 &770827068
 GameObject:
   m_ObjectHideFlags: 0

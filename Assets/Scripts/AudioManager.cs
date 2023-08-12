@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public class Sound
@@ -59,7 +61,7 @@ public class AudioManager : MonoBehaviour
     }
     void Start()
     {
-        for(int i = 0; i < sounds.Length; i++)
+        for (int i = 0; i < sounds.Length; i++)
         {
             GameObject soundObject = new GameObject("사운드 파일 이름 : " + i + " = " + sounds[i].name);
             sounds[i].SetSource(soundObject.AddComponent<AudioSource>());
@@ -68,12 +70,11 @@ public class AudioManager : MonoBehaviour
     }
     public void Play(string _name)
     {
-        for(int i = 0; i < sounds.Length; i++)
+        for (int i = 0; i < sounds.Length; i++)
         {
-            if(_name == sounds[i].name)
+            if (_name == sounds[i].name)
             {
                 sounds[i].Play();
-                return;
             }
         }
     }
