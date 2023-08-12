@@ -46,7 +46,6 @@ public class AudioManager : MonoBehaviour
     
     [SerializeField]
     public Sound[] sounds;
-
     private void Awake() // start보다 먼저 발생하는 내장함수
     {
         if (instance != null)

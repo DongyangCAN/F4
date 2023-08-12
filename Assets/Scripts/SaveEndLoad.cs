@@ -49,7 +49,6 @@ public class SaveEndLoad : MonoBehaviour
     private DatabaseManager theDatabase;
     private Equipment theEquip;
     private Inventory theInven;
-    private AudioManager theAudio;
     public Data data;
     private Vector3 vector;
     public void CallSave()
@@ -119,7 +118,6 @@ public class SaveEndLoad : MonoBehaviour
             theEquip = FindObjectOfType<Equipment>();
             theInven = FindObjectOfType<Inventory>();
             thePlayer.currentMapName = data.mapName;
-            thePlayer.currentSceneName = data.sceneName;
             vector.Set(data.playerX, data.playerY, data.playerZ);
             thePlayer.transform.position = vector;
             thePlayerStat.character_Lv = data.playerLv;
@@ -169,12 +167,14 @@ public class SaveEndLoad : MonoBehaviour
             }
             theInven.LoadItem(itemList);
             theEquip.ShowText();
+            theEquip.ShowEquip();
             GameManager theGM = FindObjectOfType<GameManager>();
             theGM.LoadStart();
-            // SceneManager.LoadScene(data.sceneName);
-            /*
-             * 씬 로드를 할 때마다 오디오 매니저에 source가 초기화가 되지 않아 문제가 발생
-             */
+            if(thePlayer.currentSceneName != data.sceneName)
+            {
+                thePlayer.currentSceneName = data.sceneName;
+                SceneManager.LoadScene(data.sceneName);
+            }
         }
         else
         {
