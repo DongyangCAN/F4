@@ -119,6 +119,7 @@ public class SaveEndLoad : MonoBehaviour
             thePlayerStat = FindObjectOfType<PlayerStat>();
             theEquip = FindObjectOfType<Equipment>();
             theInven = FindObjectOfType<Inventory>();
+            theFade = FindObjectOfType<FadeManager>();
             theFade.FadeOut();
             thePlayer.currentMapName = data.mapName;
             vector.Set(data.playerX, data.playerY, data.playerZ);

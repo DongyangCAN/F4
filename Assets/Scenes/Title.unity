@@ -155,6 +155,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &147575165 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8819307653809929122, guid: 0f88dd43ef3dd2141b7673d3dbfc878c, type: 3}
+  m_PrefabInstance: {fileID: 8570593756972370900}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &166145167
 GameObject:
   m_ObjectHideFlags: 0
@@ -216,9 +221,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 0.19607843}
+    m_HighlightedColor: {r: 1, g: 1, b: 1, a: 0.19607843}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 0.19607843}
+    m_SelectedColor: {r: 1, g: 1, b: 1, a: 0.003921569}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -238,9 +243,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1619815067}
-        m_TargetAssemblyTypeName: SaveEndLoad, Assembly-CSharp
-        m_MethodName: CallLoad
+      - m_Target: {fileID: 435874845}
+        m_TargetAssemblyTypeName: Title, Assembly-CSharp
+        m_MethodName: StartGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -250,9 +255,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 435874845}
-        m_TargetAssemblyTypeName: Title, Assembly-CSharp
-        m_MethodName: StartGame
+      - m_Target: {fileID: 1619815067}
+        m_TargetAssemblyTypeName: SaveEndLoad, Assembly-CSharp
+        m_MethodName: CallLoad
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -305,12 +310,20 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5225651291137367253, guid: 0f88dd43ef3dd2141b7673d3dbfc878c, type: 3}
   m_PrefabInstance: {fileID: 8570593756972370900}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 147575165}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5428d3f949c133c4287642b183454af1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!81 &252062840
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 147575165}
+  m_Enabled: 1
 --- !u!1001 &297898170
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -439,6 +452,10 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0.523
       objectReference: {fileID: 0}
+    - target: {fileID: 4599051681614198006, guid: fd0f70c63c0d3d6498e9f5f3fc732117, type: 3}
+      propertyPath: equipWeapon
+      value: 
+      objectReference: {fileID: 2112697244}
     - target: {fileID: 5057093093502933955, guid: fd0f70c63c0d3d6498e9f5f3fc732117, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0.523
@@ -861,7 +878,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1015720025}
   - component: {fileID: 1015720024}
-  - component: {fileID: 1015720026}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -935,14 +951,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!81 &1015720026
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1015720022}
-  m_Enabled: 1
 --- !u!1001 &1070903297
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1177,9 +1185,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 0.19607843}
+    m_HighlightedColor: {r: 1, g: 1, b: 1, a: 0.19607843}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 0.19607843}
+    m_SelectedColor: {r: 1, g: 1, b: 1, a: 0.003921569}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -1321,9 +1329,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 0.19607843}
+    m_HighlightedColor: {r: 1, g: 1, b: 1, a: 0.19607843}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 0.19607843}
+    m_SelectedColor: {r: 1, g: 1, b: 1, a: 0.003921569}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -1507,11 +1515,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2873729428689758857, guid: 7d416d3ac9916d84aaccaf78fd2f0345, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.83
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2873729428689758857, guid: 7d416d3ac9916d84aaccaf78fd2f0345, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -6.39
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2873729428689758857, guid: 7d416d3ac9916d84aaccaf78fd2f0345, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1578,6 +1586,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d416d3ac9916d84aaccaf78fd2f0345, type: 3}
+--- !u!1 &2112697244 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5213426691099499463, guid: fd0f70c63c0d3d6498e9f5f3fc732117, type: 3}
+  m_PrefabInstance: {fileID: 297898170}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &397197451301404916
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1759,7 +1772,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8819307653809929122, guid: 0f88dd43ef3dd2141b7673d3dbfc878c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 252062840}
   m_SourcePrefab: {fileID: 100100000, guid: 0f88dd43ef3dd2141b7673d3dbfc878c, type: 3}
 --- !u!1001 &9179625027304543854
 PrefabInstance:
