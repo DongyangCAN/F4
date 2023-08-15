@@ -6,6 +6,18 @@ using UnityEngine.UI;
 public class PlayerStat : MonoBehaviour
 {
     public static PlayerStat instance;
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            DontDestroyOnLoad(this.gameObject);
+            instance = this;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+    }
     public int character_Lv; // 레벨
     public int[] needExp; // 필요 경험치
     public int currentExp; // 현재 경험치

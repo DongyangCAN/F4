@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement; 
 
 public class Menu : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class Menu : MonoBehaviour
     public GameObject go;
     public AudioManager theAudio;
     public OrderManager theOrder;
+    public GameObject[] gos;
     public string call_sound;
     public string cancel_sound;
     private bool activated;
@@ -34,6 +36,16 @@ public class Menu : MonoBehaviour
         theAudio.Play(cancel_sound);
         theOrder.Move();
     }
+    public void GoToTitle()
+    {
+        for(int i = 0; i < gos.Length; i++)
+        {
+            Destroy(gos[i]);
+        }
+        go.SetActive(false);
+        activated = false;
+        SceneManager.LoadScene("Title");
+    }    
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.Escape))

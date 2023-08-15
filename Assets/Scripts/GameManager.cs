@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     private Bound[] bounds;
     private PlayerManager thePlayer;
     private CameraManager theCamera;
+    private FadeManager theFade;
     public void LoadStart()
     {
         StartCoroutine(LoadWaitCoroutine());
@@ -17,6 +18,7 @@ public class GameManager : MonoBehaviour
         thePlayer = FindObjectOfType<PlayerManager>();
         bounds = FindObjectsOfType<Bound>();
         theCamera = FindObjectOfType<CameraManager>();
+        theFade = FindObjectOfType<FadeManager>();
         theCamera.target = GameObject.Find("Player");
         for(int i = 0; i < bounds.Length; i++)
         {
@@ -26,6 +28,7 @@ public class GameManager : MonoBehaviour
                 break;
             }
         }
+        theFade.FadeIn();
     }
 
 }
