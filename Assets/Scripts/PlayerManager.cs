@@ -7,7 +7,6 @@ public class PlayerManager : MovingObject
 {
     static public PlayerManager instance;
     private AudioManager theAudio;
-    private SaveEndLoad theSEL;
     public string currentMapName;
     public string currentSceneName;
     // 뛰기 제어
@@ -46,7 +45,6 @@ public class PlayerManager : MovingObject
         animator = GetComponent<Animator>();
         boxCollider = GetComponent<BoxCollider2D>();
         theAudio = FindObjectOfType<AudioManager>();
-        theSEL = FindObjectOfType<SaveEndLoad>();
     }
     IEnumerator MoveCoroutine() // 중복 키 제어
     {
@@ -124,13 +122,11 @@ public class PlayerManager : MovingObject
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F5))
+        if(currentSceneName == "Title")
         {
-            theSEL.CallSave();
-        }
-        if (Input.GetKeyDown(KeyCode.F9))
-        {
-            theSEL.CallLoad();
+            Color color = this.GetComponent<SpriteRenderer>().color;
+            color.a = 0f;
+            this.GetComponent<SpriteRenderer>().color = color;
         }
         if (canMove && !notMove && !attacking)
         {

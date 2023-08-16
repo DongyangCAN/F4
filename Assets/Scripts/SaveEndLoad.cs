@@ -47,6 +47,7 @@ public class SaveEndLoad : MonoBehaviour
     private PlayerManager thePlayer;
     private PlayerStat thePlayerStat;
     private DatabaseManager theDatabase;
+    private FadeManager theFade;
     private Equipment theEquip;
     private Inventory theInven;
     public Data data;
@@ -58,6 +59,7 @@ public class SaveEndLoad : MonoBehaviour
         thePlayerStat = FindObjectOfType<PlayerStat>();
         theEquip = FindObjectOfType<Equipment>();
         theInven = FindObjectOfType<Inventory>();
+        theFade = FindObjectOfType<FadeManager>();
         data.playerX = thePlayer.transform.position.x;
         data.playerY = thePlayer.transform.position.y;
         data.playerZ = thePlayer.transform.position.z;
@@ -117,6 +119,8 @@ public class SaveEndLoad : MonoBehaviour
             thePlayerStat = FindObjectOfType<PlayerStat>();
             theEquip = FindObjectOfType<Equipment>();
             theInven = FindObjectOfType<Inventory>();
+            theFade = FindObjectOfType<FadeManager>();
+            theFade.FadeOut();
             thePlayer.currentMapName = data.mapName;
             vector.Set(data.playerX, data.playerY, data.playerZ);
             thePlayer.transform.position = vector;
@@ -168,18 +172,23 @@ public class SaveEndLoad : MonoBehaviour
             theInven.LoadItem(itemList);
             theEquip.ShowText();
             theEquip.ShowEquip();
-            GameManager theGM = FindObjectOfType<GameManager>();
-            theGM.LoadStart();
-            if(thePlayer.currentSceneName != data.sceneName)
-            {
-                thePlayer.currentSceneName = data.sceneName;
-                SceneManager.LoadScene(data.sceneName);
-            }
+            StartCoroutine(WaitCoroutine());
         }
         else
         {
             Debug.Log("저장된 세이브 파일이 없습니다.");
         }
         file.Close();
+    }
+    IEnumerator WaitCoroutine()
+    {
+        yield return new WaitForSeconds(2);
+        GameManager theGM = FindObjectOfType<GameManager>();
+        theGM.LoadStart();
+        if (thePlayer.currentSceneName != data.sceneName)
+        {
+            thePlayer.currentSceneName = data.sceneName;
+            SceneManager.LoadScene(data.sceneName);
+        }
     }
 }

@@ -7,6 +7,10 @@ public class GameManager : MonoBehaviour
     private Bound[] bounds;
     private PlayerManager thePlayer;
     private CameraManager theCamera;
+    private FadeManager theFade;
+    private Menu theMenu;
+    private DialogueManager theDM;
+    private Camera cam;
     public void LoadStart()
     {
         StartCoroutine(LoadWaitCoroutine());
@@ -17,8 +21,14 @@ public class GameManager : MonoBehaviour
         thePlayer = FindObjectOfType<PlayerManager>();
         bounds = FindObjectsOfType<Bound>();
         theCamera = FindObjectOfType<CameraManager>();
+        theFade = FindObjectOfType<FadeManager>();
+        theMenu = FindObjectOfType<Menu>();
+        theDM = FindObjectOfType<DialogueManager>();
+        cam = FindObjectOfType<Camera>();
         theCamera.target = GameObject.Find("Player");
-        for(int i = 0; i < bounds.Length; i++)
+        theMenu.GetComponent<Canvas>().worldCamera = cam;
+        theDM.GetComponent<Canvas>().worldCamera = cam;
+        for (int i = 0; i < bounds.Length; i++)
         {
             if (bounds[i].boundName == thePlayer.currentMapName)
             {
@@ -26,6 +36,7 @@ public class GameManager : MonoBehaviour
                 break;
             }
         }
+        theFade.FadeIn();
     }
 
 }

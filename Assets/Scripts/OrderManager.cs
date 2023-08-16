@@ -4,6 +4,19 @@ using UnityEngine;
 
 public class OrderManager : MonoBehaviour
 {
+    public static OrderManager instance;
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            DontDestroyOnLoad(this.gameObject);
+            instance = this;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+    }
     private PlayerManager thePlayer; // 이벤트 중 키입력X
     private List<MovingObject> characters; // List안에 Add, Remove, Clear 함수 존재
     void Start()
