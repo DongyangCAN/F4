@@ -122,6 +122,12 @@ public class PlayerManager : MovingObject
     }
     void Update()
     {
+        if(currentSceneName == "Title")
+        {
+            Color color = this.GetComponent<SpriteRenderer>().color;
+            color.a = 0f;
+            this.GetComponent<SpriteRenderer>().color = color;
+        }
         if (canMove && !notMove && !attacking)
         {
             if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)

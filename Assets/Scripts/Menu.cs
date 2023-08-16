@@ -22,9 +22,16 @@ public class Menu : MonoBehaviour
     public AudioManager theAudio;
     public OrderManager theOrder;
     public GameObject[] gos;
+    private PlayerManager thePlayer;
     public string call_sound;
     public string cancel_sound;
+    public GameObject hpBar;
+    public GameObject mpBar;
     private bool activated;
+    void Start()
+    {
+        thePlayer = FindObjectOfType<PlayerManager>();    
+    }
     public void Exit()
     {
         Application.Quit();
@@ -38,6 +45,10 @@ public class Menu : MonoBehaviour
     }
     public void GoToTitle()
     {
+        thePlayer.currentSceneName = "Title";
+        thePlayer.currentMapName = "Title";
+        hpBar.SetActive(false);
+        mpBar.SetActive(false);
         for(int i = 0; i < gos.Length; i++)
         {
             Destroy(gos[i]);

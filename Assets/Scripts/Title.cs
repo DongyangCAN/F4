@@ -11,6 +11,8 @@ public class Title : MonoBehaviour
     public string click_sound;
     private PlayerManager thePlayer;
     private GameManager theGM;
+    public GameObject hpBar;
+    public GameObject mpBar;
     void Start()
     {
         theFade = FindObjectOfType<FadeManager>();
@@ -27,6 +29,8 @@ public class Title : MonoBehaviour
         theFade.FadeOut();
         theAudio.Play(click_sound);
         yield return new WaitForSeconds(2f);
+        hpBar.SetActive(true);
+        mpBar.SetActive(true);
         Color color = thePlayer.GetComponent<SpriteRenderer>().color;
         color.a = 1f;
         thePlayer.GetComponent<SpriteRenderer>().color = color;
