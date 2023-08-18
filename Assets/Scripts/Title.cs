@@ -11,14 +11,14 @@ public class Title : MonoBehaviour
     public string click_sound;
     private PlayerManager thePlayer;
     private GameManager theGM;
-    public GameObject hpBar;
-    public GameObject mpBar;
+    private OrderManager theOrder;
     void Start()
     {
         theFade = FindObjectOfType<FadeManager>();
         theAudio = FindObjectOfType<AudioManager>();
         thePlayer = FindObjectOfType<PlayerManager>();
         theGM = FindObjectOfType<GameManager>();
+        theOrder = FindObjectOfType<OrderManager>();
     }
     public void StartGame()
     {
@@ -29,9 +29,8 @@ public class Title : MonoBehaviour
         theFade.FadeOut();
         theAudio.Play(click_sound);
         yield return new WaitForSeconds(2f);
-        hpBar.SetActive(true);
-        mpBar.SetActive(true);
         Color color = thePlayer.GetComponent<SpriteRenderer>().color;
+        theOrder.Move();
         color.a = 1f;
         thePlayer.GetComponent<SpriteRenderer>().color = color;
         thePlayer.currentMapName = "StartPoint";

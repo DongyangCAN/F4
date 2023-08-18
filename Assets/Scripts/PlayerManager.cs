@@ -26,6 +26,7 @@ public class PlayerManager : MovingObject
     private bool attacking = false;
     public float attackDelay;
     private float currentAttackDelay;
+    public GameObject hpmpBar;
 
     private void Awake()
     {
@@ -127,6 +128,11 @@ public class PlayerManager : MovingObject
             Color color = this.GetComponent<SpriteRenderer>().color;
             color.a = 0f;
             this.GetComponent<SpriteRenderer>().color = color;
+            hpmpBar.SetActive(false);
+        }
+        else
+        {
+            hpmpBar.SetActive(true);
         }
         if (canMove && !notMove && !attacking)
         {

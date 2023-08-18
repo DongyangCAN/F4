@@ -40,6 +40,7 @@ public class Inventory : MonoBehaviour
     private List<Item> inventoryItemList; // 플레이어가 소지한 아이템 리스트
     private List<Item> inventoryTabList; // 선택한 템에 따라 다르게 보여질 아이템 리스트
     private WaitForSeconds waitTime = new WaitForSeconds(0.01f);
+    public bool notInven = false;
     void Start()
     {
         instance = this;
@@ -242,11 +243,12 @@ public class Inventory : MonoBehaviour
     }
     void Update()
     {
-        if (!stopKeyInput)
+        if (!stopKeyInput && theEquip.notEquip == false)
         {
             if (Input.GetKeyDown(KeyCode.I))
             {
                 activated = !activated;
+                notInven = !notInven;
                 if (activated)
                 {
                     theAudio.Play(open_sound);
