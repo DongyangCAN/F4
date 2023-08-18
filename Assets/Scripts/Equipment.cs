@@ -32,6 +32,7 @@ public class Equipment : MonoBehaviour
     private int selectedSlot; // 선택된 장비 슬롯
     public bool activated = false;
     private bool inputKey = true;
+    public bool notEquip = false;
     void Start()
     {
         theInven = FindObjectOfType<Inventory>();
@@ -142,11 +143,12 @@ public class Equipment : MonoBehaviour
     }
     void Update()
     {
-        if (inputKey)
+        if (inputKey & theInven.notInven == false)
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
                 activated = !activated;
+                notEquip = !notEquip;
                 if (activated)
                 {
                     theOrder.NotMove();

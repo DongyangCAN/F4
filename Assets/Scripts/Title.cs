@@ -6,32 +6,19 @@ using UnityEngine.SceneManagement;
 
 public class Title : MonoBehaviour
 {
-    static public Title instance;
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            DontDestroyOnLoad(this.gameObject);
-            instance = this;
-        }
-        else
-        {
-            Destroy(this.gameObject);
-        }
-    }
     private FadeManager theFade;
     private AudioManager theAudio;
     public string click_sound;
     private PlayerManager thePlayer;
     private GameManager theGM;
-    public GameObject hpBar;
-    public GameObject mpBar;
+    private OrderManager theOrder;
     void Start()
     {
         theFade = FindObjectOfType<FadeManager>();
         theAudio = FindObjectOfType<AudioManager>();
         thePlayer = FindObjectOfType<PlayerManager>();
         theGM = FindObjectOfType<GameManager>();
+        theOrder = FindObjectOfType<OrderManager>();
     }
     public void StartGame()
     {
@@ -42,10 +29,8 @@ public class Title : MonoBehaviour
         theFade.FadeOut();
         theAudio.Play(click_sound);
         yield return new WaitForSeconds(2f);
-        Debug.LogError("hp : " + hpBar + " mp : " + mpBar);
-        hpBar.SetActive(true);
-        mpBar.SetActive(true);
         Color color = thePlayer.GetComponent<SpriteRenderer>().color;
+        theOrder.Move();
         color.a = 1f;
         thePlayer.GetComponent<SpriteRenderer>().color = color;
         thePlayer.currentMapName = "StartPoint";

@@ -196,8 +196,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -320}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: -0.15, y: -315.68}
+  m_SizeDelta: {x: 83.4, y: 27.84}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &166145169
 MonoBehaviour:
@@ -342,7 +342,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3044129948624110781, guid: fd0f70c63c0d3d6498e9f5f3fc732117, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3101324144120031425, guid: fd0f70c63c0d3d6498e9f5f3fc732117, type: 3}
       propertyPath: m_Name
@@ -432,9 +432,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3926639546081928237, guid: fd0f70c63c0d3d6498e9f5f3fc732117, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4118894044130583369, guid: fd0f70c63c0d3d6498e9f5f3fc732117, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4257596020004840076, guid: fd0f70c63c0d3d6498e9f5f3fc732117, type: 3}
       propertyPath: m_Colors.m_NormalColor.a
@@ -478,7 +482,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6992559391537443338, guid: fd0f70c63c0d3d6498e9f5f3fc732117, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -691,8 +695,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   click_sound: type_sound
-  hpBar: {fileID: 2031001856}
-  mpBar: {fileID: 2116765793}
 --- !u!1001 &813911181
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1170,8 +1172,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 750, y: -320}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 770, y: -313.13}
+  m_SizeDelta: {x: 90.23, y: 25.75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1505038019
 MonoBehaviour:
@@ -1314,8 +1316,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -750, y: -320}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: -772.61, y: -314.63}
+  m_SizeDelta: {x: 83.2, y: 28.75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1698704304
 MonoBehaviour:
@@ -1572,6 +1574,10 @@ PrefabInstance:
       propertyPath: m_Color.a
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3550437128259273421, guid: 7d416d3ac9916d84aaccaf78fd2f0345, type: 3}
+      propertyPath: hpmpBar
+      value: 
+      objectReference: {fileID: 1987095172}
     - target: {fileID: 3550437128259273421, guid: 7d416d3ac9916d84aaccaf78fd2f0345, type: 3}
       propertyPath: currentMapName
       value: Title
