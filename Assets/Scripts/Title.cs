@@ -6,6 +6,19 @@ using UnityEngine.SceneManagement;
 
 public class Title : MonoBehaviour
 {
+    static public Title instance;
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            DontDestroyOnLoad(this.gameObject);
+            instance = this;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+    }
     private FadeManager theFade;
     private AudioManager theAudio;
     public string click_sound;
@@ -29,6 +42,7 @@ public class Title : MonoBehaviour
         theFade.FadeOut();
         theAudio.Play(click_sound);
         yield return new WaitForSeconds(2f);
+        Debug.LogError("hp : " + hpBar + " mp : " + mpBar);
         hpBar.SetActive(true);
         mpBar.SetActive(true);
         Color color = thePlayer.GetComponent<SpriteRenderer>().color;
