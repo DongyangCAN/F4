@@ -29,6 +29,7 @@ public class Title : MonoBehaviour
         theFade.FadeOut();
         theAudio.Play(click_sound);
         yield return new WaitForSeconds(2f);
+        SceneManager.LoadScene("StartMain");
         Color color = thePlayer.GetComponent<SpriteRenderer>().color;
         theOrder.Move();
         color.a = 1f;
