@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class Sound
@@ -43,7 +44,8 @@ public class Sound
 public class AudioManager : MonoBehaviour
 {
     static public AudioManager instance;
-    
+    public Slider VolumeSlider;
+
     [SerializeField]
     public Sound[] sounds;
     private void Awake() // start보다 먼저 발생하는 내장함수
@@ -65,6 +67,15 @@ public class AudioManager : MonoBehaviour
             GameObject soundObject = new GameObject("사운드 파일 이름 : " + i + " = " + sounds[i].name);
             sounds[i].SetSource(soundObject.AddComponent<AudioSource>());
             soundObject.transform.SetParent(this.transform);
+        }
+        VolumeSlider.onValueChanged.AddListener(OnVolumeSliderChanged);
+    }
+    private void OnVolumeSliderChanged(float newVolume)
+    {
+        for (int i = 0; i < sounds.Length; i++)
+        {
+            sounds[i].Volumn = newVolume;
+            sounds[i].SetVolumn();
         }
     }
     public void Play(string _name)
