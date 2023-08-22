@@ -30,14 +30,17 @@ public class CameraManager : MonoBehaviour
     void Start()
     {
         theCamera = GetComponent<Camera>();
-        minBound = bound.bounds.min;
-        maxBound = bound.bounds.max;
+        if (bound != null)
+        {
+            minBound = bound.bounds.min;
+            maxBound = bound.bounds.max;
+        }
         halfHeight = theCamera.orthographicSize;
         halfWidth = halfHeight * Screen.width / Screen.height; // 공식
     }
     void Update()
     {
-        if (target.gameObject != null)
+        if (target != null && target.gameObject != null)
         {
             targetPosition.Set(target.transform.position.x, target.transform.position.y, this.transform.position.z);
             this.transform.position = Vector3.Lerp(this.transform.position, targetPosition, moveSpeed * Time.deltaTime);

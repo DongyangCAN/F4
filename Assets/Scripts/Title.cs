@@ -12,6 +12,8 @@ public class Title : MonoBehaviour
     private PlayerManager thePlayer;
     private GameManager theGM;
     private OrderManager theOrder;
+    private SaveEndLoad SEL;
+    private bool gameStart = true;
     void Start()
     {
         theFade = FindObjectOfType<FadeManager>();
@@ -19,6 +21,7 @@ public class Title : MonoBehaviour
         thePlayer = FindObjectOfType<PlayerManager>();
         theGM = FindObjectOfType<GameManager>();
         theOrder = FindObjectOfType<OrderManager>();
+        SEL = FindObjectOfType<SaveEndLoad>();
     }
     public void StartGame()
     {
@@ -26,9 +29,15 @@ public class Title : MonoBehaviour
     }
     IEnumerator GameStartCoroutine()
     {
+        if (gameStart)
+        {
+            SEL.StartGamePoint();
+            gameStart = false;
+        }
         theFade.FadeOut();
         theAudio.Play(click_sound);
         yield return new WaitForSeconds(2f);
+        SEL.ReRoadGame();
         SceneManager.LoadScene("StartMain");
         Color color = thePlayer.GetComponent<SpriteRenderer>().color;
         theOrder.Move();
