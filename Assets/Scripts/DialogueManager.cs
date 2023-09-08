@@ -71,6 +71,18 @@ public class DialogueManager : MonoBehaviour
     {
         talking = true;
         onlyText = false;
+        int rand = Random.Range(0, dialogue.sentenes.Length);
+        listSentences.Add(dialogue.sentenes[rand]);
+        listSprites.Add(dialogue.sprites[rand]);
+        listDialogueWindows.Add(dialogue.dialogueWindows[rand]);
+        animSprite.SetBool("Appear", true);
+        animDialogueWindow.SetBool("Appear", true);
+        StartCoroutine(StartDialogueCoroutine());
+    }
+    public void RandomShowDialogue(Dialogue dialogue) // 테스트 단계
+    {
+        talking = true;
+        onlyText = false;
         for (int i = 0; i < dialogue.sentenes.Length; i++)
         {
             listSentences.Add(dialogue.sentenes[i]);
