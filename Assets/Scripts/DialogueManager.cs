@@ -26,7 +26,7 @@ public class DialogueManager : MonoBehaviour
     private List<string> listSentences;
     private List<Sprite> listSprites;
     private List<Sprite> listDialogueWindows;
-    private int count; // ´ëÈ­ ÁøÇà »óÈ² Ä«¿îÆ®
+    private int count; // ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È² Ä«ï¿½ï¿½Æ®
     public Animator animSprite;
     public Animator animDialogueWindow;
     public bool talking = false;
@@ -59,7 +59,7 @@ public class DialogueManager : MonoBehaviour
         keyActivated = true;
         for (int i = 0; i < listSentences[count].Length; i++)
         {
-            text.text += listSentences[count][i]; // 1±ÛÀÚ ¾¿ Ãâ·Â
+            text.text += listSentences[count][i]; // 1ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½
             if (i % 7 == 1)
             {
                 theAudio.Play(typeSound);
@@ -71,24 +71,24 @@ public class DialogueManager : MonoBehaviour
     {
         talking = true;
         onlyText = false;
-        int rand = Random.Range(0, dialogue.sentenes.Length);
-        listSentences.Add(dialogue.sentenes[rand]);
-        listSprites.Add(dialogue.sprites[rand]);
-        listDialogueWindows.Add(dialogue.dialogueWindows[rand]);
-        animSprite.SetBool("Appear", true);
-        animDialogueWindow.SetBool("Appear", true);
-        StartCoroutine(StartDialogueCoroutine());
-    }
-    public void RandomShowDialogue(Dialogue dialogue) // Å×½ºÆ® ´Ü°è
-    {
-        talking = true;
-        onlyText = false;
         for (int i = 0; i < dialogue.sentenes.Length; i++)
         {
             listSentences.Add(dialogue.sentenes[i]);
             listSprites.Add(dialogue.sprites[i]);
             listDialogueWindows.Add(dialogue.dialogueWindows[i]);
         }
+        animSprite.SetBool("Appear", true);
+        animDialogueWindow.SetBool("Appear", true);
+        StartCoroutine(StartDialogueCoroutine());
+    }
+    public void RandomShowDialogue(Dialogue dialogue) // ï¿½×½ï¿½Æ® ï¿½Ü°ï¿½
+    {
+        talking = true;
+        onlyText = false;
+        int rand = Random.Range(0, dialogue.sentenes.Length);
+        listSentences.Add(dialogue.sentenes[rand]);
+        listSprites.Add(dialogue.sprites[rand]);
+        listDialogueWindows.Add(dialogue.dialogueWindows[rand]);
         animSprite.SetBool("Appear", true);
         animDialogueWindow.SetBool("Appear", true);
         StartCoroutine(StartDialogueCoroutine());
@@ -141,7 +141,7 @@ public class DialogueManager : MonoBehaviour
         keyActivated = true;
         for (int i = 0; i < listSentences[count].Length; i++)
         {
-            text.text += listSentences[count][i]; // 1±ÛÀÚ ¾¿ Ãâ·Â
+            text.text += listSentences[count][i]; // 1ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½
             if(i % 7 == 1)
             {
                 theAudio.Play(typeSound);
